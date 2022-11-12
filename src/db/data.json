@@ -1,0 +1,26 @@
+[
+    {
+        "id": "1",
+        "name" : "Product 1",
+        "price" : 64000,
+        "quantity" : "1"
+    },
+    {
+        "id": "2",
+        "name" : "Product 2",
+        "price" : 32000,
+        "quantity" : "2"
+    },
+    {
+        "id": "3",
+        "name" : "Product 3",
+        "price" : 16000,
+        "quantity" : "3"
+    },
+    {
+        "id": "4",
+        "name" : "Product 4",
+        "price" : 8000,
+        "quantity" : "4"
+    }
+]
