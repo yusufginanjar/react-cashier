@@ -1,13 +1,29 @@
 import Table from 'react-bootstrap/Table';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from 'react-bootstrap/Button';
-import products from '../db/data.json';
+import _products from '../db/data.json';
 
 export default function Dashboard() {
+    const [products, setProducts] = useState([]);
+    
+    useEffect(() => {
+        setProducts(_products);
+    }, []);
+
+
+    const handleSearch = (e) => {
+        const search = e.target.value;
+        const filteredProducts = _products.filter((product) => {
+            return product.name.toLowerCase().includes(search.toLowerCase());
+        });
+        setProducts(filteredProducts);
+    };
+    
     const handleAlert = (e) => {
         e.preventDefault();
         alert('Product Quantity Changed');
     };
+    
     return (
         <section id="single" className=''>       
         <div className="container bg-light" style={{ padding: '40px', marginTop:'50px' }}>
@@ -18,8 +34,7 @@ export default function Dashboard() {
                             <h4 className="mt-5 mb-3 fw-bold">Edit Stock of Products</h4>
                         </div>
                         <div className="input-group">
-                            <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-                            <button type="button" className="btn btn-outline-primary">search</button>
+                            <input type="search" className="form-control rounded" placeholder="Search" onChange={handleSearch} name="search" aria-label="Search" aria-describedby="search-addon" />
                         </div>
                     </div>
                     <hr/>

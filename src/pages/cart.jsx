@@ -1,15 +1,21 @@
 import Table from 'react-bootstrap/Table';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import products from '../db/data.json';
+import _products from '../db/data.json';
 import { Link } from 'react-router-dom';
+
 
 export default function Cart() {
     const [lgShow, setLgShow] = useState(false);
     const [cart, setCart] = useState([]);
     const [total, setTotal] = useState(0);
     const [totalQty, setTotalQty] = useState(0);
+    const [products, setProducts] = useState([]);
+
+    useEffect(() => {
+        setProducts(_products);
+    }, []);
 
     const addToCart = (product) => {
         const newCart = [...cart];
@@ -60,6 +66,14 @@ export default function Cart() {
         setCart(newCart);
         setTotalQty(totalQty - 1);
         setTotal(total - product.price);
+    };
+
+    const handleSearch = (e) => {
+        const search = e.target.value;
+        const filteredProducts = products.filter((product) => {
+            return product.name.toLowerCase().includes(search.toLowerCase());
+        });
+        setProducts(filteredProducts);
     };
 
 
@@ -135,8 +149,7 @@ export default function Cart() {
         </Modal.Header>
         <Modal.Body>
         <div className="input-group">
-            <input type="search" className="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-            <button type="button" className="btn btn-outline-primary">search</button>
+            <input type="search" className="form-control rounded" placeholder="Search" name="search" onChange={handleSearch} aria-label="Search" aria-describedby="search-addon" />
         </div>
         <Table   hover size="sm">
             <thead>
